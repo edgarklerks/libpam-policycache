@@ -15,7 +15,6 @@
  */
 
 #include "test.h"
-#include "util.h"
 
 #include <string.h>
 
@@ -44,6 +43,28 @@ static void FreeGroup(struct group *value) {
 void CacheTestInit() {
   CacheTestSetMockTime(NULL);
 }
+
+
+/**
+ * CacheUtilStringArrayContains:
+ * @values: (array zero-terminated=1): #NULL-terminated array of strings.
+ * @lookfor: String to look for in @values.
+ *
+ * Returns: #TRUE if @lookfor is in @values.
+ */
+gboolean CacheUtilStringArrayContains(const gchar **values,
+                                      const gchar *lookfor) {
+  if (!values || !lookfor)
+    return FALSE;
+
+  for (guint i = 0; values[i]; i++) {
+    if (g_strcmp0(values[i], lookfor) == 0) {
+      return TRUE;
+    }
+  }
+  return FALSE;
+}
+
 
 
 void CacheTestInitUsersAndGroups() {
